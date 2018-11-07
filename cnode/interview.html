@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+
+</html>
+
+<script>
+    function Animal(name) {
+        this.name = name || 'Animal';
+        this.sleep = function () {
+            console.log(this.name + 'is sleep');
+        }
+    }
+    Animal.prototype.eat = function (food) {
+        console.log(this.name + '正在吃：' + food);
+    };
+
+    function Cat() { }
+    Cat.prototype = new Animal('aaaaa');
+    console.log(new Cat())
+
+
+
+    // 
+    function Cat(name) {
+        Animal.call(this);
+        this.name = name || 'Tom';
+    }
+    Cat.prototype = new Animal();
+
+    Cat.prototype.constructor = Cat;
+
+    // Test Code
+    var cat = new Cat();
+    console.log(cat.name);
+    console.log(cat.sleep());
+    console.log(cat instanceof Animal); // true
+    console.log(cat instanceof Cat); // true
+
+    // 可以继承实例属性/方法，也可以继承原型属性/方法
+    // 既是子类的实例，也是父类的实例
+    // 不存在引用属性共享问题
+    // 可传参
+    // 函数可复用
+
+
+
+    class Father {
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+    }
+
+    class Son extends Father {
+        constructor(name, age, love) {
+            super(name, age);
+            this.lov = love;
+        }
+    }
+
+    let hl = new Son('hanel', 26, 'zhang');
+
+</script>
+
+<script>
+    // deepClone
+
+    function deepClone(obj) {
+        if (!obj && typeof obj !== 'object') return;
+        const newObj = obj instanceof Array ? [] : {};
+        for (let key in obj) {
+            if (obj[key] && typeof obj[key] === 'object') {
+                newObj[key] = deepClone(obj[key]);
+            } else {
+                newObj[key] = obj[key];
+            }
+        }
+        return newObj;
+    }
+
+    // 冒泡排序
+    var a = [1, 21, 12, 35, 5, 65];
+    function sort(arr) {
+        for (let i = 0; i < arr.length - 1; i++) {
+            for (let j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
+                }
+            }
+        }
+        return arr
+    }
+</script>
+
+<script>
+// 数组去重
+function arrRmoveRepeat(arr) {
+    return [...new Set(arr)];
+}
+
+function arrRmoveRepeat1(arr) {
+    const noRepeatArr = [];
+    for (let i = 0; i < arr.length; i++) {
+        if(noRepeatArr.indexOf(arr[i]) < 0) {
+            noRepeatArr.push(arr[i]);
+        }
+    }
+    return noRepeatArr;
+} 
+
+function arrRemoveRepeat2(arr) {
+    const obj = {};
+    for (let i = 0; i < arr.length; i++) {
+        if(!obj.hasOwnProperty(arr[i])) {
+            obj[arr[i]] = arr[i];
+        }
+    }
+    return Object.keys(obj);
+}
+
+// 深拷贝
+
+function deepClone(obj) {
+    if(obj && !typeof obj === 'object') {
+        return;
+    }
+    const newObj = obj instanceof Array ? [] : {};
+    for (let key in obj) {
+        if (obj[key] && typeof obj[key] === 'object') {
+            newObj[key] = deepClone(obj[key]);
+        } else {
+            newObj[key] = newObj[key];
+        }
+    }
+    return newObj;
+}
+
+
+// 冒泡排序
+
+function sortArr(arr) {
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length -i -1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+            }
+        }
+    }
+    return arr;
+}
+
+
+
+//继承
+// es6 
+
+class Father {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    love() {
+        console.log(this.name);
+    }
+}
+
+class Son extends Father {
+    constructor(name, son, age) {
+        super(name, age);
+        this.son = son;
+    }
+    son() {
+        console.log(this.son);
+        console.log(this.name);
+        console.log(this.age);
+    }
+}
+
+function Animals(name) {
+    this.name = name;
+    this.love = function() {
+        console.log('I love ' + this.name);
+    }
+}
+
+function Dogs(age) {
+    Animal.call(this);
+    this.age = age;
+}
+Dogs.prototype = new Animals('nn');
+
+
+
+
+
+</script>

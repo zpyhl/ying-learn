@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./../../js/jquery.js"></script>
+    <script src="./art.js"></script>
+
+</head>
+
+<body>
+    <div id="content"></div>
+    <script id="test" type="text/html">
+        <ul> 
+        {{each data as value}} 
+            <li>{{value.id}}</li> 
+        {{/each}} 
+        </ul> 
+    </script>
+</body>
+
+</html>
+
+<script>
+    $.get('https://cnodejs.org/api/v1/topics', (nodeData) => {
+        console.log(nodeData);
+        var html = template('test', nodeData);
+        document.getElementById('content').innerHTML = html;
+    });
+
+</script>
+<!-- 
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>basic-demo</title>
+    <script src="./art.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script id="test" type="text/html">
+{{if isAdmin}} 
+<h1>{{title}}</h1> 
+<ul> 
+ {{each list as value i}} 
+  <li>索引 {{i + 1}} ：{{value}}</li> 
+ {{/each}} 
+</ul> 
+{{/if}} 
+</script>
+    <script>
+        var data = {
+            title: '基本例子',
+            isAdmin: true,
+            list: ['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他']
+        };
+        var html = template('test', data);
+        document.getElementById('content').innerHTML = html; 
+    </script>
+</body>
+
+</html> -->
