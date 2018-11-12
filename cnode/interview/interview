@@ -1,0 +1,100 @@
+1,localStorage的过期时间设置的方法
+
+function set(key,value){
+        var curTime = new Date().getTime();
+        localStorage.setItem(key,JSON.stringify({data:value,time:curTime}));
+    }
+    function get(key,exp){
+        var data = localStorage.getItem(key);
+        var dataObj = JSON.parse(data);
+        if (new Date().getTime() - dataObj.time>exp) {
+            console.log('信息已过期');
+        }else{
+            var dataObjDatatoJson = JSON.parse(dataObj.data)
+            return dataObjDatatoJson;
+        }
+    }
+
+2,使用setTimeout实现setInterval的功能
+    timerFun()
+
+    function timerFun(){
+
+    //要执行的操作
+
+    var timer=setTimeout(function(){
+
+    timerFun()
+
+    clearTimeout(timer)
+
+    },2000)
+
+    }
+
+3，区分伪元素与伪类
+（1）伪类和伪元素的最大区别就在于有没有创建一个文档树以外的元素。伪元素创建了一个文档树以外的元素（虚拟容器）并为他添加样式，
+    这个容器不包含任何DOM元素但是可以包含内容。换句话说伪类和伪元素的区别就是伪类的操作对象是文档树中已有的元素，
+    而伪元素则创建了一个文档树以外的元素。
+（2）伪类使用的是单冒号，但是在css3中规定伪元素使用的双冒号，但是除了少部分的伪元素必须使用双冒号以外，
+    像after还有before都是支持单引号的。为了兼容性所以目前还是在使用一些常见的伪元素的时候采用单冒号较为稳妥。
+几种常见的伪元素：
+1）:frist-letter用于向文本中的第一个字母添加样式
+2）:first-line向文本的首行添加样式
+3）:before在元素之前添加内容
+4）:after在元素之后添加内容
+
+伪类选择器有哪些:
+1）:link向未被访问的链接添加样式（链接，看来是只用于<a>）
+2）:visited向已被访问过的链接添加样式（链接，看来还是只用于<a>）
+3）:hover当鼠标悬浮在元素上方时，向元素添加样式（没有特意指定必须是链接，所以这个标签被大量用于定义任何一个块/行元素在鼠标经过时的样式）
+4）:active向被激活的元素添加样式（当鼠标点击时的样式，要注意是点击时的样式的变化，这个也不是只有超链接才能用的伪类选择器）
+5）:focus向拥有键盘输入焦点的元素添加样式（如input输入框鼠标点击时产生背景颜色的变化，注意是键盘输入焦点。注意有些浏览器不支持此功能样式）
+6）:first-child
+
+4 截短文本
+ 单行文本
+div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+多行文本
+div {
+    overflow : hidden;
+    /*text-overflow: ellipsis; 有些示例里需要定义该属性，实际可省略*/
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+概述
+-webkit-line-clamp是一个不规范的属性（unsupported WebKit property），它没有出现在 CSS 规范草案中。
+限制在一个块元素显示的文本的行数。 为了实现该效果，它需要组合其他外来的WebKit属性。常见结合属性：
+    display: -webkit-box; 必须结合的属性，将对象作为弹性伸缩盒子模型显示 。
+    -webkit-box-orient 必须结合的属性，设置或检索伸缩盒对象的子元素的排列方式 。
+    text-overflow，可以用来多行文本的情况下，用省略号“...”隐藏超出范围的文本 
+
+5, 数组的方法
+
+arr.push(); 后添加
+arr.pop();  后删除
+arr.shift(); 前删除
+arr.unshift(); 前添加
+
+arr.splice(位置，删除几项，添加项); 改变原数组
+arr.slice(start, end); 返回删除的新数组，不改变原数组
+
+arr.foreach();
+arr.map();
+arr.filter();
+arr.reduce((p, n) => {}, 起始项);
+arr.join('-');
+
+
+6, 字符串常用方法
+
+str.split() 分割成数组
+str.slice(start,end); 不包括end
+str.indexOf('s') 返回s第一次出现的下标
+str.lastIndexOf('s') 返回s最后一次出现的下标
