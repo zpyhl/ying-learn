@@ -6,9 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        #divOne {
+            width: 200px;
+            height: 200px;
+            background: pink;
+        }
+        #divTwo {
+            width: 200px;
+            height: 200px;
+            background: #ccc;
+        }
+    </style>
 </head>
 
 <body>
+　　　　<div id="divOne" onclick="alert('我是最外层');">
+　　　　　　<div id="divTwo" onclick="alert('我是中间层！')">
+　　　　　　　　<a id="hr_three" onclick="alert('我是最里层！')">点击我</a>
+　　　　　　</div>
+　　　　</div>
 </body>
 
 </html>

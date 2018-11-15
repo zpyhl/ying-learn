@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        #container {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            overflow: hidden;
+            /*隐藏溢出的图片*/
+        }
+
+        .pic {
+            width: 1600px;
+            /*4张图的宽度*/
+            position: absolute;
+            /*基于父容器进行定位*/
+            left: 0;
+            animation: focusmap 5s infinite;
+        }
+
+        @keyframes focusmap {
+
+            0%,
+            30% {
+                left: 0;
+            }
+
+            35%,
+            65% {
+                left: -400px;
+            }
+
+            70%,
+            99% {
+                left: -800px;
+            }
+
+            100% {
+                left: -1200px;
+            }
+
+        }
+
+        .pic li {
+            float: left;
+            background: #5dd94e;
+            width: 400px;
+            height: 200px;
+        }
+
+        /* .pic li img {
+            width: 400px;
+            height: 200px;
+        } */
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <ul class="pic">
+            <li><a href="javascript:;">1</a></li>
+            <li><a href="javascript:;">2</a></li>
+            <li><a href="javascript:;">3</a></li>
+            <li><a href="javascript:;">1</a></li><!-- 克隆第一张 -->
+        </ul>
+
+    </div>
+
+</body>
+
+</html>

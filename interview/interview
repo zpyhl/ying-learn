@@ -17,19 +17,12 @@ function set(key,value){
 
 2,使用setTimeout实现setInterval的功能
     timerFun()
-
     function timerFun(){
-
-    //要执行的操作
-
-    var timer=setTimeout(function(){
-
-    timerFun()
-
-    clearTimeout(timer)
-
-    },2000)
-
+        //要执行的操作
+        var timer=setTimeout(function(){
+            timerFun()
+            clearTimeout(timer)
+        },2000)
     }
 
 3，区分伪元素与伪类
@@ -38,19 +31,19 @@ function set(key,value){
     而伪元素则创建了一个文档树以外的元素。
 （2）伪类使用的是单冒号，但是在css3中规定伪元素使用的双冒号，但是除了少部分的伪元素必须使用双冒号以外，
     像after还有before都是支持单引号的。为了兼容性所以目前还是在使用一些常见的伪元素的时候采用单冒号较为稳妥。
-几种常见的伪元素：
-1）:frist-letter用于向文本中的第一个字母添加样式
-2）:first-line向文本的首行添加样式
-3）:before在元素之前添加内容
-4）:after在元素之后添加内容
+    几种常见的伪元素：
+    1）:frist-letter用于向文本中的第一个字母添加样式
+    2）:first-line向文本的首行添加样式
+    3）:before在元素之前添加内容
+    4）:after在元素之后添加内容
 
-伪类选择器有哪些:
-1）:link向未被访问的链接添加样式（链接，看来是只用于<a>）
-2）:visited向已被访问过的链接添加样式（链接，看来还是只用于<a>）
-3）:hover当鼠标悬浮在元素上方时，向元素添加样式（没有特意指定必须是链接，所以这个标签被大量用于定义任何一个块/行元素在鼠标经过时的样式）
-4）:active向被激活的元素添加样式（当鼠标点击时的样式，要注意是点击时的样式的变化，这个也不是只有超链接才能用的伪类选择器）
-5）:focus向拥有键盘输入焦点的元素添加样式（如input输入框鼠标点击时产生背景颜色的变化，注意是键盘输入焦点。注意有些浏览器不支持此功能样式）
-6）:first-child
+    伪类选择器有哪些:
+    1）:link向未被访问的链接添加样式（链接，看来是只用于<a>）
+    2）:visited向已被访问过的链接添加样式（链接，看来还是只用于<a>）
+    3）:hover当鼠标悬浮在元素上方时，向元素添加样式（没有特意指定必须是链接，所以这个标签被大量用于定义任何一个块/行元素在鼠标经过时的样式）
+    4）:active向被激活的元素添加样式（当鼠标点击时的样式，要注意是点击时的样式的变化，这个也不是只有超链接才能用的伪类选择器）
+    5）:focus向拥有键盘输入焦点的元素添加样式（如input输入框鼠标点击时产生背景颜色的变化，注意是键盘输入焦点。注意有些浏览器不支持此功能样式）
+    6）:first-child
 
 4 截短文本
  单行文本
@@ -98,3 +91,278 @@ str.split() 分割成数组
 str.slice(start,end); 不包括end
 str.indexOf('s') 返回s第一次出现的下标
 str.lastIndexOf('s') 返回s最后一次出现的下标
+
+7, call apply bind 用法区别
+call、apply、bind的作用是改变函数运行时this的指向
+
+call 方法第一个参数是要绑定给this的值，后面传入的是一个参数列表。当第一个参数为null、undefined的时候，默认指向window。
+apply接受两个参数，第一个参数是要绑定给this的值，第二个参数是一个参数数组。当第一个参数为null、undefined的时候，默认指向window。
+bind 和call很相似，第一个参数是this的指向，从第二个参数开始是接收的参数列表。区别在于bind方法返回值是函数以及bind接收的参数列表的使用。
+    bind 方法不会立即执行，而是返回一个改变了上下文 this 后的函数。而原函数 printName 中的 this 并没有被改变，依旧指向全局对象 window。
+
+
+7,  回流 and 重绘
+
+    当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)
+    当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。
+    
+    回流必将引起重绘，而重绘不一定会引起回流。
+
+哪些操作会引起DOM操作回流？
+    1添加或删除可见的 DOM 元素 
+
+    2元素位置改变 
+
+    3元素尺寸改变（因为边距，填充，边框宽度，宽度，高度等属性改变） 
+
+    4内容改变，例如，文本改变或图片被另一个不同尺寸的所替代 
+
+    5浏览器窗口改变尺寸 
+
+    var s = document.body.style;
+    s.padding = "2px"; // 回流+重绘
+    s.border = "1px solid red"; // 再一次 回流+重绘
+    s.color = "blue"; // 再一次重绘
+    s.backgroundColor = "#ccc"; // 再一次 重绘
+    s.fontSize = "14px"; // 再一次 回流+重绘
+    // 添加node，再一次 回流+重绘
+    document.body.appendChild(document.createTextNode('abc!'));
+
+8, HTTP协议以及HTTP请求中8种请求方法
+    什么是协议？
+　　    协议，是指通信的双方，在通信流程或内容格式上，共同遵守的标准。
+
+    什么是http协议？
+
+    　　http协议，是互联网中最常见的网络通信标准。
+
+    http协议的特点
+
+    　　①通信流程：断开式（无状态）
+
+    　　　　　　　　断开式：http协议每次响应完成后，会断开与客户端的连接
+
+    　　　　　　　　无状态：由于服务器断开了之前的连接，就无法知晓连接间的关系
+
+　　    ②内容格式：消息头和消息体
+
+    HTTP请求的方法：
+    HTTP/1.1协议中共定义了八种方法（有时也叫“动作”），来表明Request-URL指定的资源不同的操作方式
+     
+    1、options
+    返回服务器针对特定资源所支持的HTTP请求方法，也可以利用向web服务器发送‘*’的请求来测试服务器的功能性
+    2、head
+    向服务器索与GET请求相一致的响应，只不过响应体将不会被返回。这一方法可以再不必传输整个响应内容的情况下，就可以获取包含在响应小消息头中的元信息。
+    3、get
+    向特定的资源发出请求。它本质就是发送一个请求来取得服务器上的某一资源。资源通过一组HTTP头和呈现数据（如HTML文本，或者图片或者视频等）返回给客户端。GET请求中，永远不会包含呈现数据。
+    4、post（创建）
+    向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。 Loadrunner中对应POST请求函数：web_submit_data,web_submit_form
+    5、put（修改）
+    向指定资源位置上传其最新内容
+    6、delete
+    请求服务器删除Request-URL所标识的资源
+    7、tarch
+    回显服务器收到的请求，主要用于测试或诊断
+    8、connect
+    HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。
+    注意：
+    1）方法名称是区分大小写的，当某个请求所针对的资源不支持对应的请求方法的时候，服务器应当返回状态码405（Mothod Not Allowed）；当服务器不认识或者不支持对应的请求方法时，应返回状态码501（Not Implemented）。
+    2）HTTP服务器至少应该实现GET和HEAD/POST方法，其他方法都是可选的，此外除上述方法，特定的HTTP服务器支持扩展自定义的方法。
+    　　
+
+    get 和 post区别
+    　　区别：
+    　　　　get请求无消息体，只能携带少量数据
+    　　　　post请求有消息体，可以携带大量数据
+    　　携带数据的方式：
+    　　　　get请求将数据放在url地址中
+    　　　　 post请求将数据放在消息体中
+
+    GET请求请提交的数据放置在HTTP请求协议头中，而POST提交的数据则放在实体数据中； 
+    GET方式提交的数据最多只能有1024字节，而POST则没有此限制。
+
+9，原生ajax
+
+    const responseData;
+    get:
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.send();
+    xhr.onreadystatechange = function() {
+        if(xhr.readystate === 4 && xhr.status ===200) {
+            responseData = xhr.responseText;
+        }
+    }
+
+    post:
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");  
+    xhr.send(data);
+    xhr.onreadystatechange = function() {
+        if(xhr.readystate === 4 && xhr.status ===200) {
+            responseData = xhr.responseText;
+        }
+    }
+
+    1. open(method, url, async) 方法需要三个参数:
+
+    　 method：发送请求所使用的方法（GET或POST）；与POST相比，GET更简单也更快，并且在大部分情况下都能用；然而，在以下情况中，请使用POST请求：
+
+    无法使用缓存文件（更新服务器上的文件或数据库）
+    向服务器发送大量数据（POST 没有数据量限制）
+    发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠
+    　url：规定服务器端脚本的 URL(该文件可以是任何类型的文件，比如 .txt 和 .xml，或者服务器脚本文件，比如 .asp 和 .php （在传回响应之前，能够在服务器上执行任务）)；
+
+    　async：规定应当对请求进行异步（true）或同步（false）处理；true是在等待服务器响应时执行其他脚本，当响应就绪后对响应进行处理；false是等待服务器响应再执行。
+
+    2. send() 方法可将请求送往服务器。
+
+    3. onreadystatechange：存有处理服务器响应的函数，每当 readyState 改变时，onreadystatechange 函数就会被执行。
+
+    4. readyState：存有服务器响应的状态信息。
+        0: 请求未初始化（代理被创建，但尚未调用 open() 方法）
+        1: 服务器连接已建立（open方法已经被调用）
+        2: 请求已接收（send方法已经被调用，并且头部和状态已经可获得）
+        3: 请求处理中（下载中，responseText 属性已经包含部分数据）
+        4: 请求已完成，且响应已就绪（下载操作已完成）
+
+    5. responseText：获得字符串形式的响应数据。
+
+10, bfc
+  bfc格式化上下文，指一个独立的渲染区域。
+    bfc的特性：
+      内部的Box会在垂直方向上一个接一个的放置。
+      垂直方向上的距离由margin决定
+      bfc的区域不会与float的元素区域重叠。
+      计算bfc的高度时，浮动元素也参与计算
+      bfc就是页面上的一个独立容器，容器里面的子元素不会影响外面元素。
+    触发bfc的元素：
+       根元素
+       float的值不为none
+       overflow的值不为visible
+       display的值为inline-block、table-cell、table-caption
+       position的值为absolute或fixed。
+
+11，盒模型
+    标准盒模型,IE盒模型： 
+    在标准盒子模型中，width 和 height 指的是内容区域的宽度和高度。
+        增加内边距、边框和外边距不会影响内容区域的尺寸，但是会增加元素框的总尺寸。
+    IE盒子模型中，width 和 height 指的是内容区域+border+padding的宽度和高度
+
+12, 深拷贝
+
+    function deepClone(obj) {
+        if(typeof obj !== 'object') return;
+        const newObj = obj instanceof Array ? [] : {};
+        for(let key in obj) {
+            if(obj[key] && typeof obj[key] === 'object') {
+                newObj[key] = deepClone(obj[key]);
+            } else {
+                newObj[key] = obj[key];
+            }
+        }
+        return newObj;
+    }
+
+13, 数组去重
+    function arrRmoveRepeat(arr) {
+        return [...new Set(arr)];
+    }
+
+    function arrRmoveRepeat1(arr) {
+        const noRepeatArr = [];
+        for (let i = 0; i < arr.length; i++) {
+            if(noRepeatArr.indexOf(arr[i]) < 0) {
+                noRepeatArr.push(arr[i]);
+            }
+        }
+        return noRepeatArr;
+    }
+
+14, ES6特性
+    1: 新的变量声明方式 let/const
+    2: 箭头函数的使用
+    3: 模板字符串
+    4: 解析结构
+    5: 函数默认参数
+    6: 展开运算符
+    7: 对象字面量 与 class
+    8: Promise
+    9: Modules
+
+15, flex布局
+    设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。
+    1. flex-direction属性决定主轴的方向（即项目的排列方向）。
+    flex-direction: row | row-reverse | column | column-reverse;
+        * row（默认值）：主轴为水平方向，起点在左端。
+        * row-reverse：主轴为水平方向，起点在右端。
+        * column：主轴为垂直方向，起点在上沿。
+        * column-reverse：主轴为垂直方向，起点在下沿
+    2 flex-wrap属性定义，如果一条轴线排不下，如何换行
+        flex-wrap: nowrap | wrap | wrap-reverse;
+    3 flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。
+    4 justify-content属性定义了项目在主轴上的对齐方式。
+        justify-content: flex-start | flex-end | center | space-between | space-around;
+            * flex-start（默认值）：左对齐
+            * flex-end：右对齐
+            * center： 居中
+            * space-between：两端对齐，项目之间的间隔都相等。
+            * space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。
+    5 align-items属性定义项目在副轴上如何对齐。
+        align-items: flex-start | flex-end | center | baseline | stretch;
+            * flex-start：交叉轴的起点对齐。
+            * flex-end：交叉轴的终点对齐。
+            * center：交叉轴的中点对齐。
+            * baseline: 项目的第一行文字的基线对齐。
+            * stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。
+    6 align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
+        align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+            * flex-start：与交叉轴的起点对齐。
+            * flex-end：与交叉轴的终点对齐。
+            * center：与交叉轴的中点对齐。
+            * space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。
+            * space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。
+            * stretch（默认值）：轴线占满整个交叉轴。
+
+16, 前端性能优化
+    尽量减少HTTP请求次数
+    压缩合并js
+    css精灵
+    内联图片。src用data:url scheme
+    减少DNS查询
+    避免空的src和href
+    为文件头指定Expires(过期时间)或者Cache-Control头部。
+    使用gzip压缩内容(服务端)
+    把CSS放到顶部
+    把JS放到底部
+    避免使用CSS表达式
+    将CSS和JS放到外部文件中
+    可缓存的AJAX异步请求同样的造成用户等待，所以使用ajax请求时，要主动告诉浏览器如果该请求有缓存就去请求缓存内容。如下代码片段,
+        $.ajax({
+            url: 'url',
+            dataType: "json",
+            cache: true, //如果有缓存请求缓存
+            success: function(son, status) {}
+        })
+    减少DOM元素数量
+    不要404。
+        所以发出http请求但获得没用的响应（如404）是完全不必要的，并且会降低用户体验，这样首先会降低（占用）并行下载数
+        如果有404状态码 在此页面展示404样式，不是直接跳转到404页面
+    不要在html中缩放图片
+
+17，移动端1px问题
+    使用border-image实现
+    使用background-image实现
+    使用box-shadow模拟边框
+
+18, 阻止事件冒泡
+    1.event.stopPropagation(); 
+    事件处理过程中，阻止了事件冒泡，但不会阻击默认行为（它就执行了超链接的跳转）
+    2.return false;
+    事件处理过程中，阻止了事件冒泡，也阻止了默认行为（比如刚才它就没有执行超链接的跳转）
+    2. event.cancelBubble=true; (IE)
+
+ 
+
+
