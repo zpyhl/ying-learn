@@ -363,6 +363,91 @@ bind 和call很相似，第一个参数是this的指向，从第二个参数开�
     事件处理过程中，阻止了事件冒泡，也阻止了默认行为（比如刚才它就没有执行超链接的跳转）
     2. event.cancelBubble=true; (IE)
 
- 
+19, 事件委托
+    document.getElementById('list').addEventListener('click', function (e) {}, true/false);
+    false- 默认  事件在冒泡阶段执行
+    true        事件在捕获阶段执行
+
+ 20, 跨域
+    JOSNP
+    cors:服务器端做手脚，在响应头header中添加"Access-Control-Allow-Origin"，指定允许访问的源。（强烈推荐）
+    document.domain,一级域名一致才可以
+        eg: 
+            需求：
+            比如我们要在当前页面下，“www.sojson.com/shiro” 下上传图片到 "cdn.sojson.com/images/" 下去。直接搞肯定是不行的。
+
+            解决：
+            在请求“www.sojson.com/shiro” 的时候，写上如下代码：
+            if(document.domain !='sojson.com'){
+                document.domain = 'sojson.com';
+            }
+
+            然后在上传的地址“cdn.sojson.com” 的Iframe 文件内写上一样的代码。
+            if(document.domain !='sojson.com'){
+                document.domain = 'sojson.com';
+            }
+            这样上传就是在相同的域下了，有的人是少了第一步，其实仔细想想，正所谓跨域，就是指你使用功能的时候，当前域和使用的域不一样，所以要在前面就指定就可以了。故保证一致。
+
+            ps：这里额外补充一下，能懂就懂，不懂也没事。
+            一级域名  有的人叫根域名，如：sojson.com、baidu.com、sina.com、sina.com.cn、sina.cn.net 等等。
+
+            二级域名  是指增加了一级，包括www。如：www.sojson.com、icp.sojson.com、zhidao.baidu.com、www.baidu.com  等等。有人把www.sojson.com叫一级域名这是错误的。
+
+21, 常见布局方式
+    固定布局  弹性布局  流式布局
+    浮动布局  定位布局
 
 
+22, HTML5 CSS3 新特性
+
+    H5: 一些更语义话的标签 article、footer、header、nav、section
+        input type  calendar、date、time、email、url、search
+        canvas
+        音视频标签 video aideo
+        localStorage sessionStorage
+
+    C3: 1, 选择器。
+        2. 和透明度。
+        3. 多栏布局。 flex布局
+        4. 多背景图。
+        5. Word Wrap。
+        6. 文字阴影。
+        7. @font-face属性。
+        8. 圆角(边框半径)。
+        9. 边框图片。
+        10. 盒阴影。
+        11. 盒子大小。
+        12. 媒体查询。
+        13, 动画
+
+23， 数组降堆
+const flattenDeep = (arr) => Array.isArray(arr)
+  ? arr.reduce( (a, b) => [...a, ...flattenDeep(b)] , [])
+  : [arr]
+
+flattenDeep([1, [[2], [3, [4]], 5]])
+
+24, 一个页面从输入URL到页面加载显示完成，这个过程都发生什么？
+    一般会经历以下几个过程：
+
+    1、首先，在浏览器地址栏中输入url
+
+    2、浏览器先查看浏览器缓存-系统缓存-路由器缓存，如果缓存中有，会直接在屏幕中显示页面内容。若没有，则跳到第三步操作。
+
+    3、在发送http请求前，需要域名解析(DNS解析)，解析获取相应的IP地址。
+
+    4、浏览器向服务器发起tcp连接，与浏览器建立tcp三次握手。
+
+    5、握手成功后，浏览器向服务器发送http请求，请求数据包。
+
+    6、服务器处理收到的请求，将数据返回至浏览器
+
+    7、浏览器收到HTTP响应
+
+    8、读取页面内容，浏览器渲染，解析html源码
+
+    9、生成Dom树、解析css样式、js交互
+
+    10、客户端和服务器交互
+
+    11、ajax查询

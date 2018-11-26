@@ -12,6 +12,7 @@
             height: 200px;
             background: pink;
         }
+
         #divTwo {
             width: 200px;
             height: 200px;
@@ -21,11 +22,11 @@
 </head>
 
 <body>
-　　　　<div id="divOne" onclick="alert('我是最外层');">
-　　　　　　<div id="divTwo" onclick="alert('我是中间层！')">
-　　　　　　　　<a id="hr_three" onclick="alert('我是最里层！')">点击我</a>
-　　　　　　</div>
-　　　　</div>
+    　　　　<div id="divOne" onclick="alert('我是最外层');">
+        　　　　　　<div id="divTwo" onclick="alert('我是中间层！')">
+            　　　　　　　　<a id="hr_three" onclick="alert('我是最里层！')">点击我</a>
+            　　　　　　</div>
+        　　　　</div>
 </body>
 
 </html>
@@ -120,104 +121,142 @@
 </script>
 
 <script>
-// 数组去重
-function arrRmoveRepeat(arr) {
-    return [...new Set(arr)];
-}
-
-function arrRmoveRepeat1(arr) {
-    const noRepeatArr = [];
-    for (let i = 0; i < arr.length; i++) {
-        if(noRepeatArr.indexOf(arr[i]) < 0) {
-            noRepeatArr.push(arr[i]);
-        }
+    // 数组去重
+    function arrRmoveRepeat(arr) {
+        return [...new Set(arr)];
     }
-    return noRepeatArr;
-} 
 
-function arrRemoveRepeat2(arr) {
-    const obj = {};
-    for (let i = 0; i < arr.length; i++) {
-        if(!obj.hasOwnProperty(arr[i])) {
-            obj[arr[i]] = arr[i];
-        }
-    }
-    return Object.keys(obj);
-}
-
-// 深拷贝
-
-function deepClone(obj) {
-    if(obj && !typeof obj === 'object') {
-        return;
-    }
-    const newObj = obj instanceof Array ? [] : {};
-    for (let key in obj) {
-        if (obj[key] && typeof obj[key] === 'object') {
-            newObj[key] = deepClone(obj[key]);
-        } else {
-            newObj[key] = newObj[key];
-        }
-    }
-    return newObj;
-}
-
-
-// 冒泡排序
-
-function sortArr(arr) {
-    for (let i = 0; i < arr.length; i++) {
-        for (let j = 0; j < arr.length -i -1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+    function arrRmoveRepeat1(arr) {
+        const noRepeatArr = [];
+        for (let i = 0; i < arr.length; i++) {
+            if (noRepeatArr.indexOf(arr[i]) < 0) {
+                noRepeatArr.push(arr[i]);
             }
         }
+        return noRepeatArr;
     }
-    return arr;
-}
+
+    function arrRemoveRepeat2(arr) {
+        const obj = {};
+        for (let i = 0; i < arr.length; i++) {
+            if (!obj.hasOwnProperty(arr[i])) {
+                obj[arr[i]] = arr[i];
+            }
+        }
+        return Object.keys(obj);
+    }
+
+    // 深拷贝
+
+    function deepClone(obj) {
+        if (obj && !typeof obj === 'object') {
+            return;
+        }
+        const newObj = obj instanceof Array ? [] : {};
+        for (let key in obj) {
+            if (obj[key] && typeof obj[key] === 'object') {
+                newObj[key] = deepClone(obj[key]);
+            } else {
+                newObj[key] = newObj[key];
+            }
+        }
+        return newObj;
+    }
+
+
+    // 冒泡排序
+
+    function sortArr(arr) {
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = 0; j < arr.length - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                }
+            }
+        }
+        return arr;
+    }
 
 
 
-//继承
-// es6 
+    //继承
+    // es6 
 
-class Father {
-    constructor(name, age) {
+    class Father {
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        love() {
+            console.log(this.name);
+        }
+    }
+
+    class Son extends Father {
+        constructor(name, son, age) {
+            super(name, age);
+            this.son = son;
+        }
+        son() {
+            console.log(this.son);
+            console.log(this.name);
+            console.log(this.age);
+        }
+    }
+
+    function Animals(name) {
         this.name = name;
+        this.love = function () {
+            console.log('I love ' + this.name);
+        }
+    }
+
+    function Dogs(age) {
+        Animal.call(this);
         this.age = age;
     }
-    love() {
-        console.log(this.name);
-    }
-}
-
-class Son extends Father {
-    constructor(name, son, age) {
-        super(name, age);
-        this.son = son;
-    }
-    son() {
-        console.log(this.son);
-        console.log(this.name);
-        console.log(this.age);
-    }
-}
-
-function Animals(name) {
-    this.name = name;
-    this.love = function() {
-        console.log('I love ' + this.name);
-    }
-}
-
-function Dogs(age) {
-    Animal.call(this);
-    this.age = age;
-}
-Dogs.prototype = new Animals('nn');
+    Dogs.prototype = new Animals('nn');
 
 
 
+
+
+</script>
+
+<script>
+    var a = [1, 2, 3, 4];
+    var b = a.map(v => v * 2);
+    var c = a.forEach(v => v * 3);
+    console.log(a, b, c);
+
+
+    var person = {};
+    var temp = [];
+    Object.defineProperty(person, 'name', {
+        set: function (newVal) {
+            temp['name'] = newVal;
+            console.log('为person设置新的姓名：' + newVal);
+        },
+        get: function () {
+            var _name = temp['name'] || '默认姓名';
+            console.log('获取person的姓名：' + _name);
+            return _name;
+        }
+    });
+    person.name = '张三';      // 打印 获取person的姓名：张三
+    console.log(person.name)
+
+    //排序
+var arr = [
+    {name:'zopp',age:0},
+    {name:'gpp',age:18},
+    {name:'yjj',age:22},
+    {name:'yjj',age:8}
+];
+
+arr.sort((a,b) => {
+    a[age] - b[age]
+});
 
 
 </script>
